@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einkaufsliste 🛒</title>
+<link rel="manifest" href="manifest.json">
+<style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; margin:0; padding:0; transition: background 0.3s;}
+    header { background: #fff; padding: 1em; text-align: center; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    h1 { margin:0; font-size:2em; }
+    main { padding: 1em; }
+    button { background: #4CAF50; color: white; border: none; padding: 0.5em 1em; margin:0.3em; border-radius:8px; cursor:pointer; transition: transform 0.2s;}
+    button:hover { background: #45a049; transform: scale(1.05);}
+    .secondary { background:#2196F3; }
+    .secondary:hover { background:#1976D2; }
+    .danger { background:#f44336; }
+    .danger:hover { background:#d32f2f; }
+    .hidden { display:none; }
+    .category { background:white; padding:0.5em; margin:0.5em 0; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+    .category h3 { margin:0; font-size:1.2em; cursor:pointer;}
+    .item-list { margin-top:0.5em; }
+    .item { display:flex; justify-content: space-between; align-items:center; padding:0.3em 0; transition: background 0.3s;}
+    input[type="number"] { width:50px; padding:0.2em; }
+    ul { list-style:none; padding:0;}
+    li { padding:0.5em; background:white; margin:0.3em 0; border-radius:8px; display:flex; justify-content: space-between; align-items:center; transition: background 0.3s;}
+    li.bought { background:#d3f9d8; text-decoration: line-through;}
+    li.missing { background:#ffd6d6; }
+    li span { flex:1; }
+    footer { font-size:0.8em; text-align:center; padding:1em; color:#666; }
+    input[type="text"] { padding:0.5em; width:100%; margin-bottom:0.5em; border:1px solid #ccc; border-radius:8px; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Einkaufsliste 🛒</h1>
+</header>
+
+<main>
+    <section id="home">
+        <button onclick="showSection('create')">📝 Liste erstellen</button>
+        <button class="secondary" onclick="showSection('shop')">🛒 Einkaufen gehen</button>
+    </section>
+
+    <section id="create" class="hidden">
+        <input type="text" id="search" placeholder="🔍 Artikel suchen..." onkeyup="searchItems()">
+        <div id="categories"></div>
+        <h2>Aktuelle Einkaufsliste</h2>
+        <ul id="list"></ul>
+        <button class="danger" onclick="clearList()">🗑 Liste löschen</button>
+        <button onclick="showSection('home')">⬅ Zurück</button>
+    </section>
+
+    <section id="shop" class="hidden">
+        <h2>Deine Einkaufsliste</h2>
+        <ul id="shopList"></ul>
+        <button class="secondary" onclick="finishShopping()">✅ Einkauf beenden</button>
+        <button onclick="showSection('home')">⬅ Zurück</button>
+    </section>
+
+    <section id="summary" class="hidden">
+        <h2>Endsumme 💰</h2>
+        <p id="totalPrice"></p>
+        <button onclick="showSection('home')">⬅ Zurück zur Startseite</button>
+    </section>
+</main>
+
+<footer>
+    Made by Nico
+</footer>
+
+<script>
+const categories = {
+    "🥦 Obst & Gemüse": ["Kartoffeln","Tomaten","Gurken","Äpfel","Bananen","Karotten","Zwiebeln","Salat","Paprika","Orangen","Weintrauben","Zucchini","Brokkoli","Erdbeeren","Brombeeren","Himbeeren"],
+    "🥩 Fleisch & Fisch": ["Hähnchenbrust","Rinderhack","Lachsfilet","Schweineschnitzel","Würstchen"],
+    "🥛 Milchprodukte": ["Milch","Butter","Käse","Joghurt","Quark","Sahne","Eier"],
+    "🥤 Getränke": ["Mineralwasser","Cola","Orangensaft","Bier","Wein","Eistee","Kaffee","Tee"],
+    "🍫 Snacks & Süßigkeiten": ["Chips","Schokolade","Gummibärchen","Kekse","Nüsse"],
+    "🍞 Backwaren": ["Brot","Brötchen","Croissant","Baguette"],
+    "❄ Tiefkühl": ["Pizza","Pommes","Eis","Spinat","Fischstäbchen"],
+    "🧴 Drogerie": ["Zahnpasta","Shampoo","Duschgel","Seife","Toilettenpapier"]
+};
+
+let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+let lastPrices = JSON.parse(localStorage.getItem('lastPrices')) || {};
+
+function saveData(){
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    localStorage.setItem('lastPrices', JSON.stringify(lastPrices));
+}
+
+function showSection(id){
+    document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    if(id==='create') renderList();
+    if(id==='shop') renderShopList();
+}
+
+function searchItems(){
+    const val = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.item').forEach(item=>{
+        item.style.display = item.textContent.toLowerCase().includes(val)? 'flex':'none';
+    });
+}
+
+function renderCategories(){
+    const container = document.getElementById('categories');
+    container.innerHTML='';
+    for(const [cat, items] of Object.entries(categories)){
+        const div=document.createElement('div'); div.className='category';
+        const h3=document.createElement('h3'); h3.textContent=cat;
+        const ul=document.createElement('div'); ul.className='item-list hidden';
+        items.forEach(item=>{
+            const row=document.createElement('div'); row.className='item';
+            const priceInfo = lastPrices[item]? ` (~${lastPrices[item]} €)` : '';
+            row.innerHTML=`<span>${item}${priceInfo}</span> 
+                            <input type="number" min="1" value="1"> 
+                            <button onclick="addToList('${item}',this.previousElementSibling.value)">➕</button>`;
+            ul.appendChild(row);
+        });
+        h3.onclick=()=>ul.classList.toggle('hidden');
+        div.appendChild(h3); div.appendChild(ul); container.appendChild(div);
+    }
+}
+
+function addToList(name, quantity){
+    shoppingList.push({name, quantity:parseInt(quantity), price:lastPrices[name]||null, bought:false});
+    saveData();
+    renderList();
+}
+
+function renderList(){
+    const ul=document.getElementById('list'); ul.innerHTML='';
+    shoppingList.forEach((item,i)=>{
+        const li=document.createElement('li');
+        li.innerHTML=`<span>${item.quantity}× ${item.name}${item.price!==null? ' - '+item.price.toFixed(2)+' €':''}</span>
+                      <button onclick="removeFromList(${i})">❌</button>`;
+        ul.appendChild(li);
+    });
+}
+
+function removeFromList(index){
+    shoppingList.splice(index,1);
+    saveData();
+    renderList();
+}
+
+function renderShopList(){
+    const ul=document.getElementById('shopList'); ul.innerHTML='';
+    shoppingList.forEach((item,i)=>{
+        const li=document.createElement('li');
+        li.className=item.bought?'bought':'';
+        li.innerHTML=`<span>${item.quantity}× ${item.name}${item.price!==null? ' - '+item.price.toFixed(2)+' €':''}</span>
+                       <button onclick="markBought(${i})">✅</button>`;
+        ul.appendChild(li);
+    });
+}
+
+function markBought(index){
+    const price=parseFloat(prompt(`Preis für ${shoppingList[index].name} (€) eingeben:`)?.replace(',','.'));
+    if(!isNaN(price)){
+        shoppingList[index].price=price;
+        shoppingList[index].bought=true;
+        lastPrices[shoppingList[index
