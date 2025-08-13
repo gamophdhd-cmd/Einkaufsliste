@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #ffffff}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #ffffff; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="de"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;Einkaufsliste 🛒&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;link rel="manifest" href="manifest.json"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">    body { font-family: Arial, sans-serif; background: #f7f7f7; margin:0; padding:0; transition: background 0.3s;}</span></p>
+<p class="p1"><span class="s1">    header { background: #fff; padding: 1em; text-align: center; box-shadow:0 2px 5px rgba(0,0,0,0.1);}</span></p>
+<p class="p1"><span class="s1">    h1 { margin:0; font-size:2em; }</span></p>
+<p class="p1"><span class="s1">    main { padding: 1em; }</span></p>
+<p class="p1"><span class="s1">    button { background: #4CAF50; color: white; border: none; padding: 0.5em 1em; margin:0.3em; border-radius:8px; cursor:pointer; transition: transform 0.2s;}</span></p>
+<p class="p1"><span class="s1">    button:hover { background: #45a049; transform: scale(1.05);}</span></p>
+<p class="p1"><span class="s1">    .secondary { background:#2196F3; }</span></p>
+<p class="p1"><span class="s1">    .secondary:hover { background:#1976D2; }</span></p>
+<p class="p1"><span class="s1">    .danger { background:#f44336; }</span></p>
+<p class="p1"><span class="s1">    .danger:hover { background:#d32f2f; }</span></p>
+<p class="p1"><span class="s1">    .hidden { display:none; }</span></p>
+<p class="p1"><span class="s1">    .category { background:white; padding:0.5em; margin:0.5em 0; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.1);}</span></p>
+<p class="p1"><span class="s1">    .category h3 { margin:0; font-size:1.2em; cursor:pointer;}</span></p>
+<p class="p1"><span class="s1">    .item-list { margin-top:0.5em; }</span></p>
+<p class="p1"><span class="s1">    .item { display:flex; justify-content: space-between; align-items:center; padding:0.3em 0; transition: background 0.3s;}</span></p>
+<p class="p1"><span class="s1">    input[type="number"] { width:50px; padding:0.2em; }</span></p>
+<p class="p1"><span class="s1">    ul { list-style:none; padding:0;}</span></p>
+<p class="p1"><span class="s1">    li { padding:0.5em; background:white; margin:0.3em 0; border-radius:8px; display:flex; justify-content: space-between; align-items:center; transition: background 0.3s;}</span></p>
+<p class="p1"><span class="s1">    li.bought { background:#d3f9d8; text-decoration: line-through;}</span></p>
+<p class="p1"><span class="s1">    li.missing { background:#ffd6d6; }</span></p>
+<p class="p1"><span class="s1">    li span { flex:1; }</span></p>
+<p class="p1"><span class="s1">    footer { font-size:0.8em; text-align:center; padding:1em; color:#666; }</span></p>
+<p class="p1"><span class="s1">    input[type="text"] { padding:0.5em; width:100%; margin-bottom:0.5em; border:1px solid #ccc; border-radius:8px; }</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;header&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;h1&gt;Einkaufsliste 🛒&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;main&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;section id="home"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button onclick="showSection('create')"&gt;📝 Liste erstellen&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button class="secondary" onclick="showSection('shop')"&gt;🛒 Einkaufen gehen&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    &lt;section id="create" class="hidden"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;input type="text" id="search" placeholder="🔍 Artikel suchen..." onkeyup="searchItems()"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div id="categories"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;h2&gt;Aktuelle Einkaufsliste&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;ul id="list"&gt;&lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button class="danger" onclick="clearList()"&gt;🗑 Liste löschen&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button onclick="showSection('home')"&gt;⬅ Zurück&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    &lt;section id="shop" class="hidden"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;h2&gt;Deine Einkaufsliste&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;ul id="shopList"&gt;&lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button class="secondary" onclick="finishShopping()"&gt;✅ Einkauf beenden&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button onclick="showSection('home')"&gt;⬅ Zurück&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    &lt;section id="summary" class="hidden"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;h2&gt;Endsumme 💰&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;p id="totalPrice"&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;button onclick="showSection('home')"&gt;⬅ Zurück zur Startseite&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/section&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/main&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;footer&gt;</span></p>
+<p class="p1"><span class="s1">    Made by Nico</span></p>
+<p class="p1"><span class="s1">&lt;/footer&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">const categories = {</span></p>
+<p class="p1"><span class="s1">    "🥦 Obst &amp; Gemüse": ["Kartoffeln","Tomaten","Gurken","Äpfel","Bananen","Karotten","Zwiebeln","Salat","Paprika","Orangen","Weintrauben","Zucchini","Brokkoli","Erdbeeren","Brombeeren","Himbeeren"],</span></p>
+<p class="p1"><span class="s1">    "🥩 Fleisch &amp; Fisch": ["Hähnchenbrust","Rinderhack","Lachsfilet","Schweineschnitzel","Würstchen"],</span></p>
+<p class="p1"><span class="s1">    "🥛 Milchprodukte": ["Milch","Butter","Käse","Joghurt","Quark","Sahne","Eier"],</span></p>
+<p class="p1"><span class="s1">    "🥤 Getränke": ["Mineralwasser","Cola","Orangensaft","Bier","Wein","Eistee","Kaffee","Tee"],</span></p>
+<p class="p1"><span class="s1">    "🍫 Snacks &amp; Süßigkeiten": ["Chips","Schokolade","Gummibärchen","Kekse","Nüsse"],</span></p>
+<p class="p1"><span class="s1">    "🍞 Backwaren": ["Brot","Brötchen","Croissant","Baguette"],</span></p>
+<p class="p1"><span class="s1">    "❄ Tiefkühl": ["Pizza","Pommes","Eis","Spinat","Fischstäbchen"],</span></p>
+<p class="p1"><span class="s1">    "🧴 Drogerie": ["Zahnpasta","Shampoo","Duschgel","Seife","Toilettenpapier"]</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];</span></p>
+<p class="p1"><span class="s1">let lastPrices = JSON.parse(localStorage.getItem('lastPrices')) || {};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function saveData(){</span></p>
+<p class="p1"><span class="s1">    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));</span></p>
+<p class="p1"><span class="s1">    localStorage.setItem('lastPrices', JSON.stringify(lastPrices));</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function showSection(id){</span></p>
+<p class="p1"><span class="s1">    document.querySelectorAll('section').forEach(s=&gt;s.classList.add('hidden'));</span></p>
+<p class="p1"><span class="s1">    document.getElementById(id).classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">    if(id==='create') renderList();</span></p>
+<p class="p1"><span class="s1">    if(id==='shop') renderShopList();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function searchItems(){</span></p>
+<p class="p1"><span class="s1">    const val = document.getElementById('search').value.toLowerCase();</span></p>
+<p class="p1"><span class="s1">    document.querySelectorAll('.item').forEach(item=&gt;{</span></p>
+<p class="p1"><span class="s1">        item.style.display = item.textContent.toLowerCase().includes(val)? 'flex':'none';</span></p>
+<p class="p1"><span class="s1">    });</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderCategories(){</span></p>
+<p class="p1"><span class="s1">    const container = document.getElementById('categories');</span></p>
+<p class="p1"><span class="s1">    container.innerHTML='';</span></p>
+<p class="p1"><span class="s1">    for(const [cat, items] of Object.entries(categories)){</span></p>
+<p class="p1"><span class="s1">        const div=document.createElement('div'); div.className='category';</span></p>
+<p class="p1"><span class="s1">        const h3=document.createElement('h3'); h3.textContent=cat;</span></p>
+<p class="p1"><span class="s1">        const ul=document.createElement('div'); ul.className='item-list hidden';</span></p>
+<p class="p1"><span class="s1">        items.forEach(item=&gt;{</span></p>
+<p class="p1"><span class="s1">            const row=document.createElement('div'); row.className='item';</span></p>
+<p class="p1"><span class="s1">            const priceInfo = lastPrices[item]? ` (~${lastPrices[item]} €)` : '';</span></p>
+<p class="p1"><span class="s1">            row.innerHTML=`&lt;span&gt;${item}${priceInfo}&lt;/span&gt; </span></p>
+<p class="p1"><span class="s1">                            &lt;input type="number" min="1" value="1"&gt; </span></p>
+<p class="p1"><span class="s1">                            &lt;button onclick="addToList('${item}',this.previousElementSibling.value)"&gt;➕&lt;/button&gt;`;</span></p>
+<p class="p1"><span class="s1">            ul.appendChild(row);</span></p>
+<p class="p1"><span class="s1">        });</span></p>
+<p class="p1"><span class="s1">        h3.onclick=()=&gt;ul.classList.toggle('hidden');</span></p>
+<p class="p1"><span class="s1">        div.appendChild(h3); div.appendChild(ul); container.appendChild(div);</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function addToList(name, quantity){</span></p>
+<p class="p1"><span class="s1">    shoppingList.push({name, quantity:parseInt(quantity), price:lastPrices[name]||null, bought:false});</span></p>
+<p class="p1"><span class="s1">    saveData();</span></p>
+<p class="p1"><span class="s1">    renderList();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderList(){</span></p>
+<p class="p1"><span class="s1">    const ul=document.getElementById('list'); ul.innerHTML='';</span></p>
+<p class="p1"><span class="s1">    shoppingList.forEach((item,i)=&gt;{</span></p>
+<p class="p1"><span class="s1">        const li=document.createElement('li');</span></p>
+<p class="p1"><span class="s1">        li.innerHTML=`&lt;span&gt;${item.quantity}× ${item.name}${item.price!==null? ' - '+item.price.toFixed(2)+' €':''}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                      &lt;button onclick="removeFromList(${i})"&gt;❌&lt;/button&gt;`;</span></p>
+<p class="p1"><span class="s1">        ul.appendChild(li);</span></p>
+<p class="p1"><span class="s1">    });</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function removeFromList(index){</span></p>
+<p class="p1"><span class="s1">    shoppingList.splice(index,1);</span></p>
+<p class="p1"><span class="s1">    saveData();</span></p>
+<p class="p1"><span class="s1">    renderList();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderShopList(){</span></p>
+<p class="p1"><span class="s1">    const ul=document.getElementById('shopList'); ul.innerHTML='';</span></p>
+<p class="p1"><span class="s1">    shoppingList.forEach((item,i)=&gt;{</span></p>
+<p class="p1"><span class="s1">        const li=document.createElement('li');</span></p>
+<p class="p1"><span class="s1">        li.className=item.bought?'bought':'';</span></p>
+<p class="p1"><span class="s1">        li.innerHTML=`&lt;span&gt;${item.quantity}× ${item.name}${item.price!==null? ' - '+item.price.toFixed(2)+' €':''}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                       &lt;button onclick="markBought(${i})"&gt;✅&lt;/button&gt;`;</span></p>
+<p class="p1"><span class="s1">        ul.appendChild(li);</span></p>
+<p class="p1"><span class="s1">    });</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function markBought(index){</span></p>
+<p class="p1"><span class="s1">    const price=parseFloat(prompt(`Preis für ${shoppingList[index].name} (€) eingeben:`)?.replace(',','.'));</span></p>
+<p class="p1"><span class="s1">    if(!isNaN(price)){</span></p>
+<p class="p1"><span class="s1">        shoppingList[index].price=price;</span></p>
+<p class="p1"><span class="s1">        shoppingList[index].bought=true;</span></p>
+<p class="p1"><span class="s1">        lastPrices[shoppingList[index</span></p>
+</body>
+</html>
